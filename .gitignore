@@ -52,3 +52,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+opendata/settings.py
+.idea
