@@ -1,6 +1,6 @@
 from urlparse import urlparse
 
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 from django.shortcuts import HttpResponseRedirect
 
 from lmgtfy.forms import MainForm
@@ -57,3 +57,28 @@ class MainView(FormView):
         return HttpResponseRedirect(self.success_url)
 
 main_view = MainView.as_view()
+
+
+class SearchResultView(ListView):
+    template_name = 'result.html'
+    model = DomainSearchResult
+    success_url = '.'
+
+    def get_queryset(self):
+        qs = super(SearchResultView, self).get_queryset()
+        try:
+            domain = self.kwargs['domain']
+        except:
+            raise Exception('Invalid url parameter has been passed.')
+        return qs.filter(
+            search_instance__domain__name=domain
+        ).order_by('result').distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchResultView, self).get_context_data(**kwargs)
+        context['domain'] = self.kwargs['domain']
+        return context
+
+
+search_result_view = SearchResultView.as_view()
+

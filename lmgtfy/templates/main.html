@@ -46,10 +46,10 @@
         {% for domain, count in table_data %}
             <tr>
                 <td>
-                    <a href="">{{ domain }}<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                    <a href="http://{{ domain }}" target="_blank">{{ domain }}<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
                 </td>
                 <td>
-                    <a href="">{{ count }}</a>
+                    <a href="{% url 'domain_result' domain %}">{{ count }}</a>
                 </td>
             </tr>
         {% endfor %}
