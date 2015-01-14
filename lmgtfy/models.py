@@ -18,4 +18,10 @@ class DomainSearch(models.Model):
 
 class DomainSearchResult(models.Model):
     search_instance = models.ForeignKey(DomainSearch)
-    result = models.TextField()
+    result = models.TextField(verbose_name='File URL')
+    fmt = models.TextField(
+        max_length=4,
+        blank=True,
+        null=True,
+        verbose_name='Format'
+    )

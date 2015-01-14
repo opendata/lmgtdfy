@@ -1,11 +1,13 @@
 from urlparse import urlparse
 
 from django.views.generic import FormView, ListView
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect, resolve_url
+from django.contrib import messages
 
 from lmgtfy.forms import MainForm
 from lmgtfy.helpers import get_yboss
-from lmgtfy.models import Domain, DomainSearch, DomainSearchResult
+from lmgtfy.models import Domain, DomainSearchResult
+from lmgtfy.helpers import search_yahoo
 
 
 YBOSS = get_yboss()
@@ -21,6 +23,8 @@ class MainView(FormView):
         domains_and_latest_counts = []
         for domain in Domain.objects.all():
             domain_search_latest = domain.domainsearch_set.all().last()
+            if not domain_search_latest:
+                continue
             count = domain_search_latest.domainsearchresult_set.count()
             domains_and_latest_counts.append((domain.name, count))
         context['table_data'] = domains_and_latest_counts
@@ -28,33 +32,19 @@ class MainView(FormView):
 
     def form_valid(self, form):
         data = form.cleaned_data
-        url = data['search_field']
+        url = data['domain']
         parsed_url = urlparse(url)
         domain = parsed_url.netloc
 
-        domain_db_record, domain_exists = Domain.objects.get_or_create(
-            name=domain
-        )
-
-        domain_search_record = DomainSearch.objects.create(
-            domain=domain_db_record
-        )
-
-        search_results = YBOSS.search('site:%s filetype:xls' % domain)
-        result_model_objects = []
-
-        for result in search_results:
-            result_model_objects.append(DomainSearchResult(
-                search_instance=domain_search_record,
-                result=result['clickurl']
-            ))
-
-        if result_model_objects:
-            DomainSearchResult.objects.bulk_create(
-                result_model_objects
+        search_done = search_yahoo(domain)
+        if not search_done:
+            messages.info(
+                self.request,
+                "We've already fetched these results today. Here they are!"
             )
-
-        return HttpResponseRedirect(self.success_url)
+        return HttpResponseRedirect(
+            resolve_url('domain_result', domain)
+        )
 
 main_view = MainView.as_view()
 
@@ -68,17 +58,20 @@ class SearchResultView(ListView):
         qs = super(SearchResultView, self).get_queryset()
         try:
             domain = self.kwargs['domain']
+            fmt = self.kwargs.get('fmt')
         except:
             raise Exception('Invalid url parameter has been passed.')
-        return qs.filter(
+        qs = qs.filter(
             search_instance__domain__name=domain
         ).order_by('result').distinct()
+        if fmt:
+            qs = qs.filter(fmt=fmt)
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super(SearchResultView, self).get_context_data(**kwargs)
-        context['domain'] = self.kwargs['domain']
+        context['domain_name'] = self.kwargs['domain']
         return context
 
 
 search_result_view = SearchResultView.as_view()
-

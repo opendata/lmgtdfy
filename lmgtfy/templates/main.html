@@ -1,5 +1,6 @@
 {% load staticfiles crispy_forms_tags %}
 <!DOCTYPE html>
+{% block head %}
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +22,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+{% endblock %}
 <body>
+{% block nav %}
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -29,7 +32,7 @@
         </div>
     </div>
 </nav>
-
+{% endblock %}
 <div class="jumbotron">
     <div class="container">
         <h1>Let Me Get That Data For You</h1>

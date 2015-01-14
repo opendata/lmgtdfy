@@ -19,12 +19,18 @@
 </div>
 
 <div class="container">
-    <h2>results for {{ domain }}</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <h2>results for {{ domain_name }}</h2>
     <table class="table table-striped">
         <tbody>
         <tr>
             <th>#</th>
             <th>File URL</th>
+            <th>Format</th>
         </tr>
         {% for record in object_list %}
             <tr>
@@ -34,6 +40,11 @@
                 <td>
                     <a href="{{ record.result }}" target="_blank">
                         {{ record.result }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'domain_result_fmt' domain_name record.fmt %}" target="_blank">
+                        {{ record.fmt }}
                     </a>
                 </td>
             </tr>
