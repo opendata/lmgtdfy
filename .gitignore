@@ -7,6 +7,8 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+bin/
+include/
 env/
 build/
 develop-eggs/
@@ -55,3 +57,5 @@ target/
 
 opendata/settings.py
 .idea
+
+db.sqlite3
