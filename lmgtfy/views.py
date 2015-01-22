@@ -1,16 +1,12 @@
 from urlparse import urlparse
 
-from django.views.generic import FormView, ListView
-from django.shortcuts import HttpResponseRedirect, resolve_url
 from django.contrib import messages
+from django.shortcuts import HttpResponseRedirect, resolve_url
+from django.views.generic import FormView, ListView
 
 from lmgtfy.forms import MainForm
-from lmgtfy.helpers import get_yboss
-from lmgtfy.models import Domain, DomainSearchResult
 from lmgtfy.helpers import search_yahoo
-
-
-YBOSS = get_yboss()
+from lmgtfy.models import Domain, DomainSearchResult
 
 
 class MainView(FormView):
@@ -41,6 +37,11 @@ class MainView(FormView):
             messages.info(
                 self.request,
                 "We've already fetched these results today. Here they are!"
+            )
+        else:
+            messages.info(
+                self.request,
+                "A background task has been created and you shall soon see the results!"
             )
         return HttpResponseRedirect(
             resolve_url('domain_result', domain)
