@@ -19,10 +19,9 @@
     View results by type:<ul id="filetypes">
       <li><a href="">all,</a></li>
       <!-- this list should be generated from the types in the table -->
-      <li><a href="">pdf,</a></li>
-      <li><a href="">xls,</a></li>
-      <li><a href="">csv,</a></li>
-      <li><a href="">unknown</a></li>
+    {% for fmt in file_formats %}
+        <li><a href="{% url 'domain_result_fmt' domain_name fmt %}">{{ fmt }}</a></li>
+    {% endfor %}
     </ul>
     <table class="table table-striped">
         <tbody>
