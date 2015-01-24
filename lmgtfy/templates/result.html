@@ -15,7 +15,11 @@
             <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
         {% endfor %}
     {% endif %}
-    <h2>results for {{ domain_name }}</h2>
+    <h2>results for {{ domain_name }}
+        {% if object_list %}
+        <small><a href="{% url 'domain_result_download' domain_name %}">download as csv</a></small>
+        {% endif %}
+    </h2>
     <table class="table table-striped">
         <tbody>
         <tr>

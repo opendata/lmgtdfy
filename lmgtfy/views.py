@@ -1,7 +1,8 @@
+import csv
 from urlparse import urlparse
 
 from django.contrib import messages
-from django.shortcuts import HttpResponseRedirect, resolve_url
+from django.shortcuts import HttpResponseRedirect, resolve_url, HttpResponse
 from django.views.generic import FormView, ListView
 
 from lmgtfy.forms import MainForm
@@ -85,3 +86,15 @@ class SearchResultView(ListView):
 
 
 search_result_view = SearchResultView.as_view()
+
+
+def get_csv(request, domain):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="%s.csv"' % domain
+    writer = csv.writer(response)
+    qs = DomainSearchResult.objects.filter(
+        search_instance__domain__name=domain
+    ).order_by('result').distinct()
+    for result in qs:
+        writer.writerow([result.title.encode("utf-8"), result.result.encode("utf-8")])
+    return response
