@@ -1,16 +1,7 @@
-{% load staticfiles crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="en">
-{% include 'parts/head.html' %}
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">Let Me Get That Data For You</a>
-        </div>
-    </div>
-</nav>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 
+{% block content %}
 <div class="jumbotron">
     <div class="container">
         <h1>Let Me Get That Data For You</h1>
@@ -43,7 +34,7 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{% url 'domain_result_fmt' domain_name record.fmt %}" target="_blank">
+                    <a href="{% url 'domain_result' domain_name %}" target="_blank">
                         {{ record.fmt }}
                     </a>
                 </td>
@@ -53,6 +44,4 @@
         </tbody>
     </table>
 </div>
-
-</body>
-</html>
+{% endblock %}
