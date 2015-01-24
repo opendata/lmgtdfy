@@ -18,6 +18,7 @@ class DomainSearch(models.Model):
 
 class DomainSearchResult(models.Model):
     search_instance = models.ForeignKey(DomainSearch)
+    title = models.TextField(verbose_name='Search result title')
     result = models.TextField(verbose_name='File URL')
     fmt = models.TextField(
         max_length=4,
@@ -25,3 +26,14 @@ class DomainSearchResult(models.Model):
         null=True,
         verbose_name='Format'
     )
+
+
+class TLD(models.Model):
+    '''
+    This model is responsible for domain zones that
+    are allowed to be searched through the system.
+    '''
+    name = models.CharField(max_length=36)
+
+    def __unicode__(self):
+        return '*.%s' % self.name

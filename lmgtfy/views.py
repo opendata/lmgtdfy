@@ -5,7 +5,7 @@ from django.shortcuts import HttpResponseRedirect, resolve_url
 from django.views.generic import FormView, ListView
 
 from lmgtfy.forms import MainForm
-from lmgtfy.helpers import search_yahoo
+from lmgtfy.helpers import search_bing, check_valid_tld
 from lmgtfy.models import Domain, DomainSearchResult
 
 
@@ -31,8 +31,16 @@ class MainView(FormView):
         url = data['domain']
         parsed_url = urlparse(url)
         domain = parsed_url.netloc
+        domain_is_whitelisted = check_valid_tld(domain)
+        if not domain_is_whitelisted:
+            messages.info(
+                self.request,
+                "Sorry, we currently cannot search this domain."
+            )
+            return HttpResponseRedirect(resolve_url('home'))
 
-        search_done = search_yahoo(domain)
+        search_done = search_bing(domain)
+
         if not search_done:
             messages.info(
                 self.request,
@@ -62,6 +70,7 @@ class SearchResultView(ListView):
             fmt = self.kwargs.get('fmt')
         except:
             raise Exception('Invalid url parameter has been passed.')
+
         qs = qs.filter(
             search_instance__domain__name=domain
         ).order_by('result').distinct()

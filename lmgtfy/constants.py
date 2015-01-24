@@ -9,4 +9,6 @@ FORMAT_CHOICES = (
     'zip',
     'doc',
     'pdf',
+    'docx',
+    'xlsx',
 )

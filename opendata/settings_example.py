@@ -1,12 +1,5 @@
-"""
-Django settings for opendata project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
-"""
+BROKER_URL = 'amqp://guest:guest@localhost//'
+CELERY_ACCEPT_CONTENT = ['json', 'pickle', ]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -108,3 +101,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger'
 }
+
+BING_KEY = 'put_your_bing_api_key_here'
