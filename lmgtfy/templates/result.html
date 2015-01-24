@@ -15,11 +15,15 @@
             <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
         {% endfor %}
     {% endif %}
-    <h2>results for {{ domain_name }}
-        {% if object_list %}
-        <small><a href="{% url 'domain_result_download' domain_name %}">download as csv</a></small>
-        {% endif %}
-    </h2>
+    <h2>results for {{ domain_name }}</h2>
+    View results by type:<ul id="filetypes">
+      <li><a href="">all,</a></li>
+      <!-- this list should be generated from the types in the table -->
+      <li><a href="">pdf,</a></li>
+      <li><a href="">xls,</a></li>
+      <li><a href="">csv,</a></li>
+      <li><a href="">unknown</a></li>
+    </ul>
     <table class="table table-striped">
         <tbody>
         <tr>
