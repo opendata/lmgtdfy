@@ -17,7 +17,7 @@
     {% endif %}
     <h2>results for {{ domain_name }}</h2>
     View results by type:<ul id="filetypes">
-      <li><a href="">all,</a></li>
+      <li><a href="{% url 'domain_result' domain_name %}">all,</a></li>
       <!-- this list should be generated from the types in the table -->
     {% for fmt in file_formats %}
         <li><a href="{% url 'domain_result_fmt' domain_name fmt %}">{{ fmt }}</a></li>
