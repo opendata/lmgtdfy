@@ -18,14 +18,14 @@
     <h2>or browse results from other sites</h2>
     <table class="table table-striped">
         <tbody>
-        <tr><th>Site</th><th>Files found</th></tr>
+        <tr><th>Files found</th><th>Site</th></tr>
         {% for domain, count in table_data %}
             <tr>
                 <td>
-                    <a href="http://{{ domain }}" target="_blank">{{ domain }}<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                    <a href="{% url 'domain_result' domain %}">{{ count }} files</a>
                 </td>
                 <td>
-                    <a href="{% url 'domain_result' domain %}">{{ count }}</a>
+                    <a href="http://{{ domain }}" target="_blank">{{ domain }} <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
                 </td>
             </tr>
         {% endfor %}
