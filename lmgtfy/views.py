@@ -29,14 +29,12 @@ class MainView(FormView):
 
     def form_valid(self, form):
         data = form.cleaned_data
-        url = data['domain']
-        parsed_url = urlparse(url)
-        domain = parsed_url.netloc
+        domain = data['domain_base']
         domain_is_whitelisted = check_valid_tld(domain)
         if not domain_is_whitelisted:
             messages.info(
                 self.request,
-                "Sorry, we currently cannot search this domain."
+                "Sorry, we currently cannot search this domain (%s)." % domain
             )
             return HttpResponseRedirect(resolve_url('home'))
 

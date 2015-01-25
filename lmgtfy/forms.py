@@ -1,4 +1,6 @@
+from urlparse import urlparse
 from django import forms
+from django.core import validators
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
@@ -18,4 +20,17 @@ class MainForm(forms.Form):
             CleanSubmitButton('submit', 'Data search')
         )
 
-    domain = forms.URLField(label='http://example.gov')
+    domain = forms.CharField(label='example.gov', required=True)
+
+    def clean(self):
+        cleaned_data = super(MainForm, self).clean()
+        domain_string = cleaned_data.get('domain', '')
+        if not (domain_string.startswith('http://') or domain_string.startswith('https://')):
+            domain_string = 'http://%s' % domain_string
+        validator = validators.URLValidator()
+        try:
+            validator(domain_string)
+        except:
+            raise forms.ValidationError('Please enter a valid url.')
+        cleaned_data['domain_base'] = urlparse(domain_string).netloc
+        return cleaned_data
