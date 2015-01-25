@@ -55,7 +55,7 @@ def search_bing_task(domain):
     ])
     search_string = 'site:%s (%s)' % (domain, format_string_part)
     bing = get_bing()
-    search_results = bing.search(search_string, 50)
+    search_results = bing.search(search_string, settings.SEARCH_PER_QUERY)
     result_model_objects = []
     domain_search_record = DomainSearch.objects.create(
         domain=domain_db_record
