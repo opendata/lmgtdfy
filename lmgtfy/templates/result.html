@@ -4,8 +4,10 @@
 {% block content %}
 <div class="jumbotron">
     <div class="container">
-        <h1>Let Me Get That Data For You</h1>
-        <p class="">Want to find out what data is available on your site?  Let's find out!</p>
+        <h1>Data files found on <a href="http://{{ domain_name }}" target="_blank">{{ domain_name }}</a></h1>
+        {% if object_list %}
+            <p><a href="{% url 'domain_result_download' domain_name %}">download as csv</a></small>
+        {% endif %}
     </div>
 </div>
 
@@ -15,14 +17,14 @@
             <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
         {% endfor %}
     {% endif %}
-    <h2>results for {{ domain_name }}</h2>
-    View results by type:<ul id="filetypes">
-      <li><a href="{% url 'domain_result' domain_name %}">all,</a></li>
-      <!-- this list should be generated from the types in the table -->
+    <p>View results by type:
+    <ul class="list-inline">
+        <li><a href="{% url 'domain_result' domain_name %}">all,</a></li>
     {% for fmt in file_formats %}
         <li><a href="{% url 'domain_result_fmt' domain_name fmt %}">{{ fmt }}</a></li>
     {% endfor %}
     </ul>
+    </p>
     <table class="table table-striped">
         <tbody>
         <tr>
