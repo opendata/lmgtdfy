@@ -1,5 +1,4 @@
 import csv
-from urlparse import urlparse
 
 from django.contrib import messages
 from django.shortcuts import HttpResponseRedirect, resolve_url, HttpResponse
@@ -51,7 +50,7 @@ class MainView(FormView):
                 "A background task has been created and you shall soon see the results!"
             )
         return HttpResponseRedirect(
-            resolve_url('domain_result', domain)
+            resolve_url('home')
         )
 
 main_view = MainView.as_view()
@@ -72,7 +71,7 @@ class SearchResultView(ListView):
 
         qs = qs.filter(
             search_instance__domain__name=domain
-        ).order_by('result').distinct()
+        ).order_by('result')
         if fmt:
             qs = qs.filter(fmt=fmt)
         return qs

@@ -1,4 +1,3 @@
-from uuid import uuid4
 from django.db import models
 
 
@@ -10,7 +9,7 @@ class Domain(models.Model):
 
 
 class DomainSearch(models.Model):
-    uuid = models.CharField(max_length=36, default=lambda: uuid4())
+    uuid = models.CharField(max_length=36, default='')
     domain = models.ForeignKey(Domain)
     created_at = models.DateTimeField(auto_now_add=True)
     completed_at = models.DateTimeField(blank=True, null=True)
@@ -26,6 +25,8 @@ class DomainSearchResult(models.Model):
         null=True,
         verbose_name='Format'
     )
+    size = models.BigIntegerField(verbose_name='File size', default=0)
+    content_type = models.CharField(max_length=128, default='')
 
 
 class TLD(models.Model):
