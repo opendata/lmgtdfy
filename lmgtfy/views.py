@@ -79,6 +79,9 @@ class SearchResultView(ListView):
     def get_context_data(self, **kwargs):
         context = super(SearchResultView, self).get_context_data(**kwargs)
         context['domain_name'] = self.kwargs['domain']
+        context['format']      = self.kwargs.get('fmt')
+        self.kwargs['fmt'] = None # clear the format
+        # so that we get a list of all of the formats for the domain
         qs = set(self.get_queryset().values_list('fmt', flat=True))
         context['file_formats'] = list(qs)
         return context

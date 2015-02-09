@@ -19,9 +19,13 @@
     {% endif %}
     <p>View results by type:
     <ul class="list-inline">
-        <li><a href="{% url 'domain_result' domain_name %}">all,</a></li>
+        <li><a href="{% url 'domain_result' domain_name %}">
+          {% if not format %}<strong>all</strong>{% else %}all{% endif %}
+        </a></li>
     {% for fmt in file_formats %}
-        <li><a href="{% url 'domain_result_fmt' domain_name fmt %}">{{ fmt }}</a></li>
+        <li><a href="{% url 'domain_result_fmt' domain_name fmt %}">
+          {% if format and fmt == format %}<strong>{{ fmt }}</strong>{% else %}{{ fmt }}{% endif %}
+        </a></li>
     {% endfor %}
     </ul>
     </p>
