@@ -2,13 +2,11 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="jumbotron">
-    <div class="container">
-        <h1>Data files found on <a href="http://{{ domain_name }}" target="_blank">{{ domain_name }}</a></h1>
-        {% if object_list %}
-            <p><a href="{% url 'domain_result_download' domain_name %}">download as csv</a></small>
-        {% endif %}
-    </div>
+<div class="container header">
+    <h1>Data files found on <a href="http://{{ domain_name }}" target="_blank">{{ domain_name }}</a></h1>
+    {% if object_list %}
+        <p><a href="{% url 'domain_result_download' domain_name %}">download as csv</a></small>
+    {% endif %}
 </div>
 
 <div class="container">
@@ -33,27 +31,21 @@
         <tbody>
         <tr>
             <th>#</th>
-            <th>File URL</th>
+            <th>Title</th>
             <th>Format</th>
             <th>Size</th>
+            <th>File URL</th>
         </tr>
         {% for record in object_list %}
             <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ record.title }}</td>
                 <td>
-                    {{ forloop.counter }}
+                    <a href="{% url 'domain_result' domain_name %}" target="_blank">{{ record.fmt }}</a>
                 </td>
+                <td>{{ record.size }} kB</td>
                 <td>
-                    <a href="{{ record.result }}" target="_blank">
-                        {{ record.result }}
-                    </a>
-                </td>
-                <td>
-                    <a href="{% url 'domain_result' domain_name %}" target="_blank">
-                        {{ record.fmt }}
-                    </a>
-                </td>
-                <td>
-                    {{ record.size }} kB
+                    <a href="{{ record.result }}" target="_blank">{{ record.result }}</a>
                 </td>
             </tr>
         {% endfor %}

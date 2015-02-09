@@ -97,6 +97,8 @@ def get_csv(request, domain):
     qs = DomainSearchResult.objects.filter(
         search_instance__domain__name=domain
     ).order_by('result').distinct()
+    writer.writerow(["title", "format", "kilobyte_size", "url"])
     for result in qs:
-        writer.writerow([result.title.encode("utf-8"), result.result.encode("utf-8")])
+        writer.writerow([result.title.encode("utf-8"), result.fmt.encode("utf-8"), 
+                         result.size, result.result.encode("utf-8")])
     return response
