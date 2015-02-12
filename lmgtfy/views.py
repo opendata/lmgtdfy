@@ -6,7 +6,7 @@ from django.views.generic import FormView, ListView
 
 from lmgtfy.forms import MainForm
 from lmgtfy.helpers import search_bing, check_valid_tld
-from lmgtfy.models import Domain, DomainSearchResult
+from lmgtfy.models import Domain, DomainSearch, DomainSearchResult
 
 
 class MainView(FormView):
@@ -77,13 +77,22 @@ class SearchResultView(ListView):
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super(SearchResultView, self).get_context_data(**kwargs)
-        context['domain_name'] = self.kwargs['domain']
+        context                = super(SearchResultView, self).get_context_data(**kwargs)
+        domain_name            = self.kwargs['domain']
+        context['domain_name'] = domain_name
         context['format']      = self.kwargs.get('fmt')
-        self.kwargs['fmt'] = None # clear the format
+        self.kwargs['fmt']     = None # clear the format
         # so that we get a list of all of the formats for the domain
         qs = set(self.get_queryset().values_list('fmt', flat=True))
         context['file_formats'] = list(qs)
+        domain = Domain.objects.filter(name=domain_name)
+        search_being_performed = len(DomainSearch.objects.filter(domain=domain, completed_at=None)) > 0
+        if search_being_performed:
+            messages.info( 
+                self.request, 
+                "Thanks for waiting as we gather more results... This page will refresh in 10 seconds"
+            )
+            context['refresh_counter'] = 10
         return context
 
 
