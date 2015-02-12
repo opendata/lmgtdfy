@@ -20,6 +20,12 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
         
+      <script>
+        refreshPage   = function(){ document.location.reload(true); }
+        refreshPageIn = function(seconds) { refreshPageTimerId = window.setTimeout(refreshPage, seconds*1000); }
+        cancelRefresh = function(id) { window.clearTimeout(id); }
+      </script>
+        
       <style>
         .header{ margin-top: 50px;}
       </style>
