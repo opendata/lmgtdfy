@@ -41,7 +41,7 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ record.title }}</td>
                 <td>
-                    <a href="{% url 'domain_result' domain_name %}" target="_blank">{{ record.fmt }}</a>
+                    <a href="{% url 'domain_result_fmt' domain_name record.fmt %}">{{ record.fmt }}</a>
                 </td>
                 <td>{{ record.size }} kB</td>
                 <td>
