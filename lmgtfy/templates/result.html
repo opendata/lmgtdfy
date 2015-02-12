@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container header">
-    <h1>Data files found on <a href="http://{{ domain_name }}" target="_blank">{{ domain_name }}</a></h1>
+    <h1>Data files from <a href="http://{{ domain_name }}" target="_blank">{{ domain_name }}</a></h1>
 </div>
 
 <div class="container">
@@ -27,6 +27,7 @@
         <p><a href="{% url 'domain_result_download' domain_name %}">Download results as csv</a></small>
     {% endif %}
     </p>
+    {% if object_list %}
     <table class="table table-striped">
         <tbody>
         <tr>
@@ -52,6 +53,9 @@
 
         </tbody>
     </table>
+    {% else %}
+    <h2>No results for this domain{% if refresh_counter %} yet.  We're still gathering results.{% endif %}</h2>
+    {% endif%}
 </div>
 {% if refresh_counter %}<script>refreshPageIn({{refresh_counter}});</script>{% endif %}
 {% endblock %}
