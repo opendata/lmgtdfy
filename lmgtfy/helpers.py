@@ -33,7 +33,8 @@ def search_bing(domain):
     if recently_searched:
         return False
     else:
-        search_bing_task.apply_async(kwargs={'domain': domain})
+        domain_search_record = DomainSearch.objects.create(domain=domain_db_record)
+        search_bing_task.apply_async(kwargs={'domain_search_record': domain_search_record})
         return True
 
 
