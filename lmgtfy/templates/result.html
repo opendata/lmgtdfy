@@ -4,9 +4,6 @@
 {% block content %}
 <div class="container header">
     <h1>Data files found on <a href="http://{{ domain_name }}" target="_blank">{{ domain_name }}</a></h1>
-    {% if object_list %}
-        <p><a href="{% url 'domain_result_download' domain_name %}">download as csv</a></small>
-    {% endif %}
 </div>
 
 <div class="container">
@@ -26,6 +23,9 @@
         </a></li>
     {% endfor %}
     </ul>
+    {% if object_list %}
+        <p><a href="{% url 'domain_result_download' domain_name %}">Download results as csv</a></small>
+    {% endif %}
     </p>
     <table class="table table-striped">
         <tbody>
