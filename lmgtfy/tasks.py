@@ -61,7 +61,8 @@ def search_bing_task(domain_search_record):
             
     # save any remaining results
     if result_model_objects:
-        DomainSearchResult.objects.bulk_create(
-            result_model_objects
-        )
+        DomainSearchResult.objects.bulk_create( result_model_objects )
+    
+    domain_search_record.completed_at = datetime.datetime.now()
+    domain_search_record.save()
     return True
