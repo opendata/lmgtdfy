@@ -10,10 +10,8 @@ Yes.
 
 ## Sounds too good to be true! What's the catch?
 
-You will need to sign up for Microsoft's Azure marketplace in order to get an access key for Bing's search API if you wish to run the site yourself.
-
-If you'd like to use our version, you can visit [http://derp]()
+If you wish to run your own copy of the site, you will need to sign up for Microsoft's Azure marketplace in order to get an access key for Bing's search API.
 
 ## Colophon
 
-This tool is made by SVSG for the United States Open Data Initiative.
+This tool was made by [SVSG](http://svsg.co/) for [U.S. Open Data](https://usopendata.org/).
