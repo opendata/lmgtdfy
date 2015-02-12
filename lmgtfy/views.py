@@ -38,11 +38,10 @@ class MainView(FormView):
             return HttpResponseRedirect(resolve_url('home'))
 
         search_done = search_bing(domain)
-
         if not search_done:
             messages.info(
                 self.request,
-                "We've already fetched these results today. Here they are!"
+                "This domain has already been requested today! Here is what we've gathered."
             )
         else:
             messages.info(
@@ -50,7 +49,7 @@ class MainView(FormView):
                 "A background task has been created and you shall soon see the results!"
             )
         return HttpResponseRedirect(
-            resolve_url('home')
+            resolve_url('domain_result', domain)
         )
 
 main_view = MainView.as_view()
@@ -90,7 +89,7 @@ class SearchResultView(ListView):
         if search_being_performed:
             messages.info( 
                 self.request, 
-                "Thanks for waiting as we gather more results... This page will refresh in 10 seconds"
+                "We're gather more results right now... This page will refresh in 10 seconds"
             )
             context['refresh_counter'] = 10
         return context
