@@ -1,16 +1,10 @@
 # Let Me Get That Data For You (LMGTDFY)
 
-Good day sir/madam, do you make data accessible on your website?  You might, and may not even know it.  Thankfully, we here at LMGTDFY can help you with that exact problem.
+LMGTDFY is a web-based utility to catalog all open data file formats found on a given domain name. It finds CSV, XML, JSON, XLS, XLSX, XML, and Shapefiles, and makes the resulting inventory available for download as a CSV file. It does this using Bing’s API.
 
-Our python, django and celery driven website can help identify data located on your website quickly and easily for the low introductory price of absolutely free and open source.
+This is intended for people who need to inventory all data files on a given domain name—these are generally employees of state and municipal government, who are creating an open data repository, and performing the initial step of figuring out what data is already being emitted by their government.
 
-## Is it any good?
-
-Yes.
-
-## Sounds too good to be true! What's the catch?
-
-If you wish to run your own copy of the site, you will need to sign up for Microsoft's Azure marketplace in order to get an access key for Bing's search API.
+LMGTDFY powers [U.S. Open Data’s LMGTDFY site](http://lmgtdfy.usopendata.org/), but anybody can install the software and use it to create their own inventory. You might want to do this if you have more than 300 data files on your site. U.S. Open Data’s LMGTDFY site caps the number of results at 300, in order to avoid winding up with an untenably large invoice for using Bing’s API. ([Microsoft allows 5,000 searches/month for free](https://datamarket.azure.com/dataset/bing/search).)
 
 ## Installation
 
