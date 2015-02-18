@@ -44,6 +44,8 @@ mv settings_example.py settings.py
 pico settings.py
 ```
 
+You will probably want to edit `TIME_ZONE` and `SEARCH_PER_QUERY` (the maximum number of results to get from Bing, per site), and you have to provie your Bing API key as `BING_KEY`. If you’re deploying a live site, you’ll want to set `DEBUG` to `False`.
+
 ### Set up the application
 
 Follow the prompts as appropriate to set up the database. This will also set up the superuser you use to log into the site’s `/admin` page.
