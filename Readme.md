@@ -58,7 +58,7 @@ Follow the prompts as appropriate to set up the database. This will also set up 
 python manage.py syncdb
 ```
 
-# Start Django with Gunicorn
+### Start Django with Gunicorn
 
 Make sure to specify the PID file, so you can stop it again later.
 
@@ -66,12 +66,22 @@ Make sure to specify the PID file, so you can stop it again later.
 gunicorn -D -p gunicorn.pid --access-logfile access.log --error-logfile error.log opendata.wsgi
 ```
 
-# Launch Celery
+### Launch Celery
 
 This will manage the search API requests. Use screen to run this `screen` to keep it running in the background, and reattach to Celery to stop it with Ctrl-C.
 
 ```
 celery -A opendata worker -l info
+```
+
+### Proxy it through Apache/Nginx
+
+Pass all requests through to Gunicorn, except for any requests to `static/`. For instance, in Apache, you'd set up something like this:
+
+```
+ProxyPass /static !
+ProxyPass / http://localhost:8000/
+ProxyPassReverse / http://localhost:8000/
 ```
 
 Now it's installed and running!
@@ -80,4 +90,4 @@ Note that if you need to stop the currently running Gunicorn instance, you can r
 
 ## Colophon
 
-This tool was made by [SVSG](http://svsg.co/) for [U.S. Open Data](https://usopendata.org/).
+This tool was made by [Ted Han](/knowtheory) and [SVSG](http://svsg.co/) for [U.S. Open Data](https://usopendata.org/).
