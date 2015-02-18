@@ -17,7 +17,7 @@ class MainView(FormView):
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         domains_and_latest_counts = []
-        for domain in Domain.objects.all():
+        for domain in Domain.objects.order_by("-id")[:50]:
             domain_search_latest = domain.domainsearch_set.all().last()
             if not domain_search_latest:
                 continue
