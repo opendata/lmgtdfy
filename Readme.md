@@ -84,9 +84,21 @@ ProxyPass / http://localhost:8000/
 ProxyPassReverse / http://localhost:8000/
 ```
 
-Now it's installed and running!
+### Final configuration
 
-Note that if you need to stop the currently running Gunicorn instance, you can run `kill `cat gunicorn.pid`.
+By default, no domains are whitelisted—you have to specify which TLDs or domains that you want to permit people to get data for. That's because Bing API queries cost money, so you might want to restrict it. Log in to `http://example.com/admin` (using your site’s domain name) and add any TLDs (e.g., `gov`) or domain names that you want to allow site visitors to index.
+
+### Also
+
+Note that if you need to stop the currently running Gunicorn instance, you can run:
+
+```
+kill `cat gunicorn.pid`
+```
+
+### Finally
+
+You'll probably want to set up Gunicorn and Celery to run continuously, and to start and stop along with your server. Here are [instructions on daemonizing Gunicorn](http://gunicorn-docs.readthedocs.org/en/latest/deploy.html) and [instructions on daemonizing Celery](http://celery.readthedocs.org/en/latest/tutorials/daemonizing.html).
 
 ## Colophon
 
