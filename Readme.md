@@ -64,10 +64,10 @@ gunicorn -D -p gunicorn.pid --access-logfile access.log --error-logfile error.lo
 
 ### Launch Celery
 
-This will manage the search API requests. Use screen to run this `screen` to keep it running in the background, and reattach to Celery to stop it with Ctrl-C.
+This will manage the search API requests. Use screen to run this `screen` to keep it running in the background, and reattach to Celery to stop it with Ctrl-C. The `--autoscale` option specifies how many (and how few) copies of Celery you want running at one time—basically, how many people who think are going to be trying to request data on your site at once. `10,2` means that it allows a maximum of 10, and always has at least 2 instances running.
 
 ```
-celery -A opendata worker -l info
+celery -A opendata worker -l info --autoscale=10,2
 ```
 
 ### Proxy it through Apache/Nginx
