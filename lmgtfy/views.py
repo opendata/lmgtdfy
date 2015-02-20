@@ -33,7 +33,7 @@ class MainView(FormView):
         if not domain_is_whitelisted:
             messages.info(
                 self.request,
-                "Sorry, we currently cannot search this domain (%s)." % domain
+                "Sorry, but to limit the cost of running this service, we have not enabled searching this domain name (%s)." % domain
             )
             return HttpResponseRedirect(resolve_url('home'))
 
@@ -46,7 +46,7 @@ class MainView(FormView):
         else:
             messages.info(
                 self.request,
-                "A background task has been created and you shall soon see the results!"
+                "Gathering results now. They will be displayed shortly."
             )
         return HttpResponseRedirect(
             resolve_url('domain_result', domain)
@@ -66,7 +66,7 @@ class SearchResultView(ListView):
             domain = self.kwargs['domain']
             fmt = self.kwargs.get('fmt')
         except:
-            raise Exception('Invalid url parameter has been passed.')
+            raise Exception('Invalid URL parameter has been passed.')
 
         qs = qs.filter(
             search_instance__domain__name=domain
@@ -89,7 +89,7 @@ class SearchResultView(ListView):
         if search_being_performed:
             messages.info( 
                 self.request, 
-                "We're gather more results right now... This page will refresh in 10 seconds"
+                "We're gathering more results right now. This page will refresh in 10 seconds."
             )
             context['refresh_counter'] = 10
         return context
