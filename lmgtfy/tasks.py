@@ -5,6 +5,7 @@ import urllib
 
 from celery import shared_task
 from django.conf import settings
+from django.core.exceptions import DoesNotExist
 
 from bingpy import WebSearch
 
@@ -46,14 +47,21 @@ def search_bing_task(domain_search_record):
             file_size = 0
             file_type = 'unknown'
 
-        result_model_objects.append(DomainSearchResult(
+        new_result = DomainSearchResult(
             search_instance=domain_search_record,
             result=result_url,
             fmt=file_format,
             title=result.title,
             size=int(file_size) / 1024,
             content_type=file_type
-        ))
+        )
+
+        try:
+            DomainSearchResult.objects.get(new_result)
+            continue
+        except DoesNotExist:
+            result_model_objects.append(new_result)
+
         # if there are results, batch them up and save them as we iterate.
         if len(result_model_objects) >= 20:
             DomainSearchResult.objects.bulk_create( result_model_objects )
