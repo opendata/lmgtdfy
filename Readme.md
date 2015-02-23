@@ -94,8 +94,8 @@ kill `cat gunicorn.pid`
 
 ### Finally
 
-You'll probably want to set up Gunicorn and Celery to run continuously, and to start and stop along with your server. Here are [instructions on daemonizing Gunicorn](http://gunicorn-docs.readthedocs.org/en/latest/deploy.html) and [instructions on daemonizing Celery](http://celery.readthedocs.org/en/latest/tutorials/daemonizing.html).
+You'll probably want to set up Gunicorn and Celery to run continuously, and to start and stop along with your server. Here are [instructions on daemonizing Gunicorn](https://gunicorn-docs.readthedocs.org/en/latest/deploy.html) and [instructions on daemonizing Celery](https://celery.readthedocs.org/en/latest/tutorials/daemonizing.html).
 
 ## Colophon
 
-This tool was made by [Ted Han](/knowtheory) and [SVSG](http://svsg.co/) for [U.S. Open Data](https://usopendata.org/).
+This tool was made by [Ted Han](https://github.com/knowtheory) and [SVSG](http://svsg.co/) for [U.S. Open Data](https://usopendata.org/).
