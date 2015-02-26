@@ -24,7 +24,7 @@
     {% endfor %}
     </ul>
     {% if object_list %}
-        <p><a href="{% url 'domain_result_download' domain_name %}">Download results as csv</a></small>
+        <p><a href="{% url 'domain_result_download' domain_name %}">Download results as <abbr title="Comma Separated Values">CSV.</a></small>
     {% endif %}
     </p>
     {% if object_list %}
@@ -56,6 +56,13 @@
     {% else %}
     <h2>No results for this domain{% if refresh_counter %} yet.  We're still gathering results.{% endif %}</h2>
     {% endif%}
+
+    <div id="footer">
+        <div class="container">
+            <p class="muted">Created by <a href="https://usopendata.org/">U.S. Open Data</a>. <a href="https://github.com/opendata/lmgtdfy/">All code available on GitHub</a>. Powered by the <a href="https://datamarket.azure.com/dataset/bing/search">Bing Search API</a>.</p>
+        </div>
+    </div>
+
 </div>
 {% if refresh_counter %}<script>refreshPageIn({{refresh_counter}});</script>{% endif %}
 {% endblock %}
