@@ -4,9 +4,9 @@
 {% block content %}
 <div class="jumbotron">
     <div class="container">
-        <h1>Let Me Get That Data For You!</h1>
-        <p>Not sure what data is available on your website?  We can find out!</p>
-        <p> Enter your website's domain: {% crispy form form.helper %}</p>
+        <h1>Let Me Get That Data For You</h1>
+        <p>Not sure what data is already provided on your website?  We can find out!</p>
+        <p>Enter your website’s domain name: {% crispy form form.helper %}</p>
     </div>
 </div>
 
@@ -16,10 +16,12 @@
         <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
     {% endfor %}
 {% endif %}
-    <h2>or view results from other sites</h2>
+    <h2>Results from Other Sites</h2>
     <table class="table table-striped">
+        <thead>
+            <tr><th>Files Found</th><th>Site</th></tr>
+        </thead>
         <tbody>
-        <tr><th>Files found</th><th>Site</th></tr>
         {% for domain, count in table_data %}
             <tr>
                 <td>
@@ -32,5 +34,12 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <div id="footer">
+        <div class="container">
+            <p class="muted">Created by <a href="https://usopendata.org/">U.S. Open Data</a>. <a href="https://github.com/opendata/lmgtdfy/">All code available on GitHub</a>. Powered by the <a href="https://datamarket.azure.com/dataset/bing/search">Bing Search API</a>.</p>
+        </div>
+    </div>
+    
 </div>
 {% endblock %}
