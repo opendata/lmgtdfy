@@ -103,4 +103,4 @@ MESSAGE_TAGS = {
 }
 
 BING_KEY = 'put_your_bing_api_key_here'
-SEARCH_PER_QUERY = 50
+SEARCH_PER_QUERY = 2000
