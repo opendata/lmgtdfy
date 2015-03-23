@@ -4,7 +4,7 @@ LMGTDFY is a web-based utility to catalog all open data file formats found on a 
 
 This is intended for people who need to inventory all data files on a given domain name—these are generally employees of state and municipal government, who are creating an open data repository, and performing the initial step of figuring out what data is already being emitted by their government.
 
-LMGTDFY powers [U.S. Open Data’s LMGTDFY site](http://lmgtdfy.usopendata.org/), but anybody can install the software and use it to create their own inventory. You might want to do this if you have more than 300 data files on your site. U.S. Open Data’s LMGTDFY site caps the number of results at 300, in order to avoid winding up with an untenably large invoice for using Bing’s API. ([Microsoft allows 5,000 searches/month for free](https://datamarket.azure.com/dataset/bing/search).)
+LMGTDFY powers [U.S. Open Data’s LMGTDFY site](http://lmgtdfy.usopendata.org/), but anybody can install the software and use it to create their own inventory. You might want to do this if you have more than 2,000 data files on your site. U.S. Open Data’s LMGTDFY site caps the number of results at 2,000, in order to avoid winding up with an untenably large invoice for using Bing’s API. ([Microsoft allows 5,000 searches/month for free](https://datamarket.azure.com/dataset/bing/search), but has kindly provided U.S. Open Data with a substantial sponsorship for this service, in the form of API credits.)
 
 ## Installation
 
