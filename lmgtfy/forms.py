@@ -17,7 +17,7 @@ class MainForm(forms.Form):
         self.helper.form_show_labels = False
         self.helper.layout = Layout(
             'domain',
-            CleanSubmitButton('submit', 'Data search')
+            CleanSubmitButton('submit', 'Search Data')
         )
 
     domain = forms.CharField(label='example.gov', required=True)
@@ -31,6 +31,6 @@ class MainForm(forms.Form):
         try:
             validator(domain_string)
         except:
-            raise forms.ValidationError('Please enter a valid url.')
+            raise forms.ValidationError('Please enter a valid URL.')
         cleaned_data['domain_base'] = urlparse(domain_string).netloc
         return cleaned_data
